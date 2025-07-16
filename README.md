@@ -54,23 +54,23 @@ TF-IDF (Term Frequency-Inverse Document Frequency) was initially tested as a tex
 
 ```json
 {
-  "word_count": 28,
-  "char_count": 420,
-  "has_media": 1,
-  "hour": 21,
-  "sentiment": 0.95,
-  "company_encoded": 8,
-  "username_encoded": 11,
-  "day_of_week": 5
+  "word_count": 15,
+  "char_count": 180,
+  "has_media": 0,
+  "hour": 14,
+  "sentiment": 0.4,
+  "company_encoded": 2,
+  "username_encoded": 5,
+  "day_of_week": 2,
 }
 ```
 **Output:**
 ```json
-Predicted Likes: 395
+Predicted Likes:212
 ```
 
 Interpretation:
-This tweet is expected to do well — it was posted late in the evening (hour 21), has high sentiment, and contains media. The model correctly interprets it as a potentially viral tweet.
+This tweet is likely a brief, informative or neutral update with no media, posted mid-day. Despite low emotional weight, it performed well—possibly due to relevance or a moderately influential account.
 
 ## How the API Works
 

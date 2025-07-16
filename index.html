@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tweet Like Predictor</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #aa5ecd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: rgb(235, 171, 171);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(25, 24, 24, 0.1);
+      width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: 500;
+    }
+
+    input[type="text"] {
+      width: 80%;
+      padding: 8px 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      transition: border-color 0.3s;
+    }
+
+    input[type="text"]:focus {
+      border-color: #3b105a;
+      outline: none;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background-color: #703e74;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #410f92;
+    }
+
+    #result {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 20px;
+      color: #2b9348;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Tweet Like Predictor</h2>
+    <form id="likeForm">
+      <label>Word Count:</label>
+      <input type="text" id="word_count" required>
+
+      <label>Char Count:</label>
+      <input type="text" id="char_count" required>
+
+      <label>Has Media (0 or 1):</label>
+      <input type="text" id="has_media" required>
+
+      <label>Hour:</label>
+      <input type="text" id="hour" required>
+
+      <label>Sentiment:</label>
+      <input type="text" id="sentiment" required>
+
+      <label>Company(encoded):</label>
+      <input type="text" id="company_encoded" required>
+
+      <label>Username(encoded):</label>
+      <input type="text" id="username_encoded" required>
+
+      <label>Day of week (0–6):</label>
+      <input type="text" id="day_of_week" required>
+
+      <button type="submit">Predict</button>
+    </form>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    document.getElementById('likeForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const data = {
+        word_count: parseInt(document.getElementById('word_count').value),
+        char_count: parseInt(document.getElementById('char_count').value),
+        has_media: parseInt(document.getElementById('has_media').value),
+        hour: parseInt(document.getElementById('hour').value),
+        sentiment: parseFloat(document.getElementById('sentiment').value),
+        company_encoded: parseInt(document.getElementById('company_encoded').value),
+        username_encoded: parseInt(document.getElementById('username_encoded').value),
+        day_of_week: parseInt(document.getElementById('day_of_week').value),
+      };
+
+      const response = await fetch('http://127.0.0.1:5000/predict', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json();
+      document.getElementById('result').textContent = `Predicted Likes: ${result.predicted_likes}`;
+    });
+  </script>
+</body>
+</html>
